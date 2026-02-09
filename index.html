@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Maintenance Management System - Track and manage equipment maintenance across multiple sites">
+    <title>Maintenance Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logos">
+                <img src="assets/rd-logo.png" alt="R&D Research & Development" class="logo logo-rd">
+                <img src="assets/binquraya-logo.png" alt="Bin Quraya Construction" class="logo logo-binquraya">
+            </div>
+            <h1 class="system-title">Maintenance Management System</h1>
+            <div class="header-actions">
+                <button id="exportBtn" class="btn-admin" style="display: none; margin-right: 12px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Export to Excel</span>
+                </button>
+                <button id="adminBtn" class="btn-admin">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span id="adminBtnText">Admin Login</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Site Navigation -->
+    <nav class="site-nav" id="siteNav">
+        <div class="site-nav-container">
+            <button class="site-btn active" data-site="all">
+                <div class="site-name">All Sites</div>
+            </button>
+            <button class="site-btn" data-site="mgs">
+                <div class="site-name">MGS (Riyadh)</div>
+            </button>
+            <button class="site-btn" data-site="jafurah">
+                <div class="site-name">Jafurah</div>
+            </button>
+            <button class="site-btn" data-site="ras-tanura">
+                <div class="site-name">Ras Tanura</div>
+            </button>
+            <button class="site-btn" data-site="zuluf">
+                <div class="site-name">Zuluf</div>
+            </button>
+            <button class="site-btn" data-site="yanbu">
+                <div class="site-name">Yanbu</div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Equipment List View -->
+        <div id="equipmentListView" class="view active">
+            <div class="view-header">
+                <h2 id="siteTitle">MGS (Riyadh) Equipment</h2>
+                <div class="search-bar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search equipment...">
+                </div>
+            </div>
+            <div id="equipmentGrid" class="equipment-grid">
+                <!-- Equipment cards will be dynamically inserted here -->
+            </div>
+        </div>
+
+        <!-- Equipment Detail View -->
+        <div id="equipmentDetailView" class="view">
+            <button class="btn-back" id="backBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
+                Back to Equipment List
+            </button>
+            <div id="equipmentDetail" class="equipment-detail">
+                <!-- Equipment details will be dynamically inserted here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Admin Login</h3>
+                <button class="modal-close" id="closeAdminModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label for="adminUsername">Username</label>
+                    <input type="text" id="adminUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <p class="hint">Demo credentials: admin / admin123</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Equipment Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Equipment</h3>
+                <button class="modal-close" id="closeEditModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <form id="editEquipmentForm">
+                <div class="form-group">
+                    <label for="editName">Equipment Name</label>
+                    <input type="text" id="editName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editType">Type</label>
+                    <input type="text" id="editType" required>
+                </div>
+                <div class="form-group">
+                    <label for="editStatus">Status</label>
+                    <select id="editStatus" required>
+                        <option value="Operational">Operational</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Out of Service">Out of Service</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editDriver">Driver Name</label>
+                    <input type="text" id="editDriver" required>
+                </div>
+                <div class="form-group">
+                    <label for="editLastMaintenance">Last Maintenance Date</label>
+                    <input type="date" id="editLastMaintenance" required>
+                </div>
+                <div class="form-group">
+                    <label for="editNextMaintenance">Next Maintenance Date</label>
+                    <input type="date" id="editNextMaintenance" required>
+                </div>
+                <div class="form-group">
+                    <label for="editLocation">Location</label>
+                    <input type="text" id="editLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="editNotes">Notes</label>
+                    <textarea id="editNotes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- QR Scanner Modal -->
+    <div id="qrScannerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Scan QR Code</h3>
+                <button class="modal-close" id="closeQrModal">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div id="qrReader"></div>
+            <p class="hint">Point your camera at a QR code to view equipment details</p>
+        </div>
+    </div>
+
+    <!-- Floating QR Scanner Button -->
+    <button id="floatingQrBtn" class="floating-btn" title="Scan QR Code">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+    </button>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+    <!-- Application Scripts -->
+    <script src="app.js"></script>
+    <script src="qr-handler.js"></script>
+</body>
+
+</html>

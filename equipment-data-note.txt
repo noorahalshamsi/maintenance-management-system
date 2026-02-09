@@ -1,0 +1,9 @@
+// Auto-generated equipment data - 2026-02-09T08:49:05.462Z
+// This file contains the equipment data only - to be imported into app.js
+
+// The complete app.js file should include:
+// 1. This equipment data
+// 2. State management variables
+// 3. All application functions
+
+// To integrate: Copy the sitesData object from this file and replace the old sitesData in app.js
